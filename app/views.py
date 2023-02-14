@@ -1,6 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
+from app.forms import LivrosForm
+from app.models import Livros
 
 
 def home(request):
@@ -55,9 +58,66 @@ def logouts(request):
     logout(request)
     return redirect('/painel/')
 
+
 def changePassword(request):
     user = User.objects.get(email=request.user.email)
     user.set_password('123456')
     user.save()
     logout(request)
     return redirect('/painel/')
+
+
+def index(request):
+    data = {}
+    all = Livros.objects.all()
+    paginator = Paginator(all, 2)
+    pages = request.GET.get('page')
+    data['db'] = paginator.get_page(pages)
+    search = request.GET.get('search')
+    if search:
+        data['db'] = Livros.objects.filter(titulo__icontains=search)
+    else:
+        data['db'] = Livros.objects.all()
+    return render(request, 'index.html', data)
+
+
+def form(request):
+    data = {}
+    data['form'] = LivrosForm()
+    return render(request, 'form.html', data)
+
+
+def createLivro(request):
+    form = LivrosForm(request.POST or None)
+    if form.is_valid():
+        data = {}
+        form.save()
+        return redirect('/index/')
+
+
+def view(request, pk):
+    data = {}
+    data['db'] = Livros.objects.get(pk=pk)
+    return render(request, 'view.html', data)
+
+
+def edit(request, pk):
+    data = {}
+    data['db'] = Livros.objects.get(pk=pk)
+    data['form'] = LivrosForm(instance=data['db'])
+    return render(request, 'form.html', data)
+
+
+def update(request, pk):
+    data = {}
+    data['db'] = Livros.objects.get(pk=pk)
+    form = LivrosForm(request.POST or None, instance=data['db'])
+    if form.is_valid():
+        form.save()
+        return redirect('/index/')
+
+
+def delete(request, pk):
+    db = Livros.objects.get(pk=pk)
+    db.delete()
+    return redirect('/index/')

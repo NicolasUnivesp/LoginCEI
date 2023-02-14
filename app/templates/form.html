@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="col-8 m-auto pt-2 pb-2 text-center">
+        <h1>Cadastro</h1>
+    </div>
+
+    <div class="col-8 m-auto pt-3 pb-2 text-center">
+        <a href="/index/" class="btn btn-info">Voltar</a>
+    </div>
+
+    <div class="col-8 m-auto pt-4 pb-2 text-center">
+        <div id="result"></div>
+                <form name="form" id="form" action="{% if db %}>/update{{db.id}}/{% else %}/createLivro/{% endif %}" method="post">
+
+                {% csrf_token %}
+                <!--{{form.as_p}}-->
+                <div class="form-group mt-4">Titulo: {{form.titulo}}</div>
+                <div class="form-group mt-4">Autor: {{form.autor}}</div>
+                <div class="form-group mt-4">Ano: {{form.ano}}</div>
+                <div class="form-group mt-4">Quantidade: {{form.quantidade}}</div>
+                <div class="form-group mt-4">Disponivel: {{form.disponivel}}</div>
+
+                <input type="submit" class="btn btn-success" value="Salvar">
+            </form>
+    </div>
+{% load static %}
+<script src="{% static 'javascript.js' %}"></script>
+
+<!--     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>-->
+<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>-->
+
+</body>
+</html>
+
+
+
+
+
+
+
+

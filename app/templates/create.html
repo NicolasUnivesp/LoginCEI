@@ -1,5 +1,4 @@
 {% extends 'main.html' %}
-
 {% block content %}
     <form name="form-users" id="formUsers" method="post" action="/store/">
         <div class="col-6 mt-4 m-auto">
@@ -8,7 +7,6 @@
                     {{msg}}
                 </div>
             {% endif %}
-
             {% csrf_token %}
             <input class="form-control mt-4" type="text" name="name" id="name" placeholder="Nome:">
             <input class="form-control mt-4" type="text" name="user" id="user" placeholder="Nome do Usuário:">
@@ -18,7 +16,6 @@
             <input class="btn btn-primary mt-4" type="submit" value="Cadastrar">
 <!--            <br><input class="btn btn-dark mt-4" type="url" value="Voltar" >-->
             <br><a href="../" class="btn btn-primary mt-4" type="button">Voltar</a>
-
         </div>
     </form>
 {% endblock %}
